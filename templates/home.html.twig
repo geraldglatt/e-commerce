@@ -1,0 +1,43 @@
+ {% extends "base.html.twig" %}
+
+ {% block title  %}Accueil{% endblock %}
+ {% block body %}
+ <div class="container">
+    <h1>Nos produits phares</h1>
+    <div class="row">
+        {% for i in 1..3 %}
+        <div class="col">
+            <div class="card">
+                <img src="https://picsum.photos/200/200" class="img-fluid"  alt="image du produit">
+                <div class="card-body">
+                    <h4 class="card-title">Superbe chaise en bois</h4>
+                    <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore, nam.</p>
+                    <a href="#" class="btn btn-primary btn-sm">Détails</a>
+                    <a href="#" class="btn btn-success btn-sm">Ajouter</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <h2>Un service irréprochable</h2>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio dignissimos, eius veritatis beatae ducimus laborum.</p>
+    <div class="row">
+        {% include "shared/_assurance.html.twig" with {
+            'color': 'primary',
+            'icone': 'fas fa-truck',
+            'text': "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio dignissimos, eius veritatis beatae ducimus laborum."
+        } %}
+        {% include "shared/_assurance.html.twig" with {
+            'color': 'success',
+            'icone': 'fas fa-check',
+            'text': "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio dignissimos, eius veritatis beatae ducimus laborum."
+        } %}
+        {% include "shared/_assurance.html.twig" with {
+            'color': 'warning',
+            'icone': 'fas fa-lock',
+            'text': "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio dignissimos, eius veritatis beatae ducimus laborum."
+        } %}
+    </div>
+</div>
+ {% endblock %}

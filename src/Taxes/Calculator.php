@@ -18,4 +18,5 @@ class Calculator {
         $this->logger->info("Un calcul à lieu : $prix");
         return $prix * (20 / 100);
     }
+
 }
