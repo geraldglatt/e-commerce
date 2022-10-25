@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProductController extends AbstractController
 {
@@ -48,18 +52,23 @@ class ProductController extends AbstractController
     }
 
     #[Route('/admin/product/create', name: 'product_create')]
-    public function create(FormFactoryInterface $factory) 
+    public function create(Request $request, SluggerInterface $slugger,EntityManagerInterface $em) 
     {
     
-        $builder = $factory->createBuilder();
+        $form = $this->createForm(ProductType::class);
 
-        $builder->add('name')
-                ->add('shortDescription')
-                ->add('price')
-                ->add('category');
+        $form->handleRequest($request);
 
-        $form = $builder->getForm();
+        if($form->isSubmitted()) {
 
+            $product = $form->getData();
+            $product->setSlug(strtolower($slugger->slug($product->getName())));
+            
+            $em->persist($product);
+            $em->flush();
+        }
+        
+       
         $formView = $form->createView();
 
 
