@@ -3,11 +3,11 @@
     {% form_theme formview 'bootstrap_5_layout.html.twig' %}
 
     {% block title %}
-        création d'un produit
+        Edition de {{ product.name }}
     {% endblock %}
 
     {% block body %}
-        <h1>Nouveau produit</h1>
+        <h1>Editer {{ product.name }}</h1>
 
         {{ form_start(formview) }}
 
@@ -24,12 +24,10 @@
                 {{ form_row(formview.shortDescription) }}
             </div>
         </div>
-
         <button type="submit" class="btn btn-primary mt-4">
             <i class="fas fa-save"></i>
-            Créer le produit
+            Éditer le produit
         </button>
 
         {{ form_end(formview) }}
-
     {% endblock %}
