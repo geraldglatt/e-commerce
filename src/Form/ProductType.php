@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Form\DataTransformer\CentimesTransformer;
+use App\Form\Type\PriceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,7 +37,8 @@ class ProductType extends AbstractType
                     'label' => 'prix du produit en ',
                     'attr' => [
                         'placeholder' => 'Tapez le prix du produit en euros'
-                    ]
+                    ],
+                    'divisor' =>1
                 ])
                 ->add('picture', UrlType::class, [
                     'label' => 'Image du produit',
@@ -51,41 +55,56 @@ class ProductType extends AbstractType
             
                 ]);
 
-                $builder->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) {
-                    $product = $event->getData();
+                // $builder->get('price')->addModeltransformer(new CentimesTransformer);
+                //     function($value) {
+                //         if($value === null) {
+                //             return;
+                //         }
+                //         return $value / 1;
+                //     },
+                //     function($value) {
+                //         if($value === null) {
+                //             return;
+                //         }
+                //         return $value * 1;
+                //     }
+                // ));
 
-                    if($product->getPrice() !== null) {
-                        $product->setPrice($product->getPrice() * 1);
-                    }
-                });
+                // $builder->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) {
+                //     $product = $event->getData();
+
+                //     if($product->getPrice() !== null) {
+                //         $product->setPrice($product->getPrice() * 1);
+                //     }
+                // });
             
-                $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-                    $form = $event->getForm();
+            //     $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            //         $form = $event->getForm();
                     
                     
-                    /** @var Product */
-                    $product = $event->getData();
+            //         /** @var Product */
+            //         $product = $event->getData();
 
-                    if ($product->getPrice() !== null) {
-                        $product->setPrice($product->getPrice() / 1);
-                    }
+            //         if ($product->getPrice() !== null) {
+            //             $product->setPrice($product->getPrice() / 1);
+            //         }
 
-                    // if($product->getId() === null) {
+            //         // if($product->getId() === null) {
 
-                    //     $form->add('category', EntityType::class, [
-                    //         'label' => 'Catégorie',
-                    //         'placeholder' => '-- Choisir une catégorie --',
-                    //         'class' => Category::class,
-                    //         // 'choice_label'=> 'name',
-                    //         'choice_label' => function (Category $category) {
-                    //             return strtoupper($category->getName());
-                    //         }
+            //         //     $form->add('category', EntityType::class, [
+            //         //         'label' => 'Catégorie',
+            //         //         'placeholder' => '-- Choisir une catégorie --',
+            //         //         'class' => Category::class,
+            //         //         // 'choice_label'=> 'name',
+            //         //         'choice_label' => function (Category $category) {
+            //         //             return strtoupper($category->getName());
+            //         //         }
                     
-                    // ]);
+            //         // ]);
 
-                // }
+            //     // }
 
-            });
+            // });
             
 
 
