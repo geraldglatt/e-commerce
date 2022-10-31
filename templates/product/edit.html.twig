@@ -9,7 +9,7 @@
     {% block body %}
         <h1>Editer {{ product.name }}</h1>
 
-        {{ form_start(formview) }}
+        {{ form_start(formview, {'attr': {'novalidate': 'novalidate' }}) }}
 
         {{ form_errors(formview) }}
 
