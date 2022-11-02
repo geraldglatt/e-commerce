@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formview 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <h1>Connexion</h1>
+
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {{ form_start(formview) }}
+
+    {{ form_widget(formview) }}
+
+    <button type="submit" class="btn btn-success">Connexion</button>
+
+    {{ form_end(formview) }}
+
+
+{% endblock %}
