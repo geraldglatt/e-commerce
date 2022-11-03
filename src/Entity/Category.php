@@ -28,6 +28,9 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
 
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    private ?User $owner = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -96,4 +99,16 @@ class Category
     // {
     //     return $this->name;
     // }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
 }
