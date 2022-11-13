@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme formview 'bootstrap_5_layout.html.twig' %}
+
 {% block title %}Votre panier{% endblock %}
 
 {% block body %}
@@ -46,6 +48,15 @@
             </tr>
         </tfoot>
     </table>
+    <hr>
+    <h2>Confirmez votre commande en remplissant ce formulaire</h2>
+    {{ form_start(confirmationForm) }}
+
+    {{ form_widget(confirmationForm) }}
+
+    <button type="submit" class="btn btn-success">Je confirme !</button>
+    
+    {{ form_end(confirmationForm) }}
     {% else %}
         <h2>Le panier est vide !</h2>
     {% endif %}
