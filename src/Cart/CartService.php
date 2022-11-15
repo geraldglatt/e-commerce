@@ -17,6 +17,14 @@ class CartService
         $this->productRepository = $productRepository;
     }
 
+    protected function saveCart(array $cart) {
+        $this->session->set('cart', $cart);
+    }
+
+    public function empty() {
+        $this->saveCart([]);
+    }
+
     public function add(int $id) {
         //0. Est ce que le produit existe
         //1. Retrouver le panier dans la session
@@ -81,6 +89,9 @@ class CartService
         return $total;
     }
 
+    /**
+     * @return CartItem[]
+     */
     public function getDetailItems() : array 
     {
         $detailCart  = [];
