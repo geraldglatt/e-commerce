@@ -85,10 +85,12 @@ class PurchaseConfirmationController extends AbstractController
         // 8. Nous allons enregistrer la commande (EntityManagerInterface)
         $this->em->flush();
 
-        $this->cartService->empty();//ici on vide le panier(attention,il y à une methode empty() dans notre cartService)
-
-        $this->addFlash('success', "La commande a bien été enregistrée");
-        return $this->redirectToRoute('purchases_index');
+        //on vide pas le panier tant que la commande n'est pas payée
+        //$this->cartService->empty();//ici on vide le panier(attention,il y à une methode empty() dans notre cartService)
+        //$this->addFlash('success', "La commande a bien été enregistrée");
+        return $this->redirectToRoute('purchase_payment_form', [
+            'id' => $purchase->getId()
+        ]);
     }
 
 }
