@@ -6,12 +6,14 @@
         <h1>Payez votre commande avec Stripe</h1>
 
         <form id="payment-form">
-            <div id="card-element"><!--Stripe.js injects the Payment Element--></div>
+            <div id="payment-element">
+                <!--Stripe.js injects the Payment Element-->
+            </div>
             <button id="submit" class="btn btn-success">
                 <div class="spinner hidden" id="spinner"></div>
-                <span id="button-text">Payer avec strip !</span>
+                <span id="button-text">Payer avec stripe !</span>
             </button>
-            <p id="card-error" role="alert"></p>
+            <div id="payment-message" class="hidden"></div>
         </form>
     {% endblock %}
 

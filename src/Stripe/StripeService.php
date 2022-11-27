@@ -21,11 +21,11 @@ class StripeService  {
     }
 
     public function getPaymentGetIntent(Purchase $purchase): string {
-        \Stripe\Stripe::setApiKey($this->SecretKey);
+     \Stripe\Stripe::setApiKey($this->SecretKey);
 
     return  \Stripe\PaymentIntent::create([
-        'amount' => $purchase->getTotal(),
-        'currency' => 'eur'
+        'amount' => $purchase->getTotal() * 100,
+        'currency' => 'eur',
     ]);
     }
 }

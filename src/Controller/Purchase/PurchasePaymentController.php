@@ -28,6 +28,8 @@ class PurchasePaymentController extends AbstractController {
 // This is your test secret API key.
     $intent = $stripeService->getPaymentGetIntent($purchase);
 
+    
+        //'clientSecret' => $intent->client_secret (pour le moment cela ne fonctionne pas)
         return $this->render('purchase/payment.html.twig', [
             'clientSecret' => $intent,
             'purchase' => $purchase,
