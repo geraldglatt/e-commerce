@@ -61,7 +61,6 @@ class PurchaseConfirmationController extends AbstractController
         
         // 6. Nous allons la lier avec l'utilisateur actuellement connecté(Security)
         $purchase->setUser($user)
-                 ->setPurchasedAt(new DateTimeImmutable())
                  ->setTotal($this->cartService->getTotal());//ici on recupère notre total(avec la fonction getTotal dans notre cartService)
 
         $this->em->persist($purchase);

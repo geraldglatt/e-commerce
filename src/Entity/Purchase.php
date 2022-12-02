@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\PurchaseRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PurchaseRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Purchase
 {
     public const STATUS_PENDING = 'PENDING';
@@ -43,13 +46,21 @@ class Purchase
     #[ORM\Column]
     private ?\DateTimeImmutable $purchasedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'purchase', targetEntity: PurchaseItem::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'purchase', targetEntity: PurchaseItem::class, orphanRemoval: true)]     
     private Collection $purchaseItems;
 
     public function __construct()
     {
         $this->purchaseItems = new ArrayCollection();
     }
+
+    #[ORM\PrePersist]
+    public function prePersist() {
+        if(empty($this->purchasedAt)) {
+            $this->purchasedAt = new DateTimeImmutable();
+        }
+    }
+    
 
     public function getId(): ?int
     {
