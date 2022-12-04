@@ -10,7 +10,10 @@
             }) }}">{{ product.category.name }}</a></li>
             <li class="breadcrumb-item active">{{product.name}}</li>
         </ol>
-        <h1>product : {{ product.name }} </h1>
+        <h1>product : {{ product.name }} 
+                      ({{ product.price | amount  }})
+        </h1>
+                       
         <div class="row">
                 <div class="col-4">
                     <img src="{{product.picture}}" class="img-fluid"  alt="image de {{product.name}}">
