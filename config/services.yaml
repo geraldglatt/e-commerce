@@ -19,6 +19,29 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+        tags: ['controller.service_arguments']
+    
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Taxes\Calculator:
+        arguments:
+            $tva: 20
+
+    App\Taxes\Detector:
+        arguments:
+            $seuil: 100
+
+    Cocur\Slugify\Slugify: ~
+
+    App\Stripe\StripeService:
+        arguments:
+            $secretKey: '%env(STRIPE_SECRET_KEY)%'
+            $publicKey: '%env(STRIPE_PUBLIC_KEY)%'
+
+    App\Doctrine\Listener\ProductSlugListener:
+        tags: [{ name: 'doctrine.orm.entity_listener', event: 'prePersist', Entity: App\Entity\Product }]
+
+    App\Doctrine\Listener\CategorySlugListener:
+        tags: [{ name: 'doctrine.orm.entity_listener', event: 'prePersist', Entity: App\Entity\Category }]
+    

@@ -1,0 +1,33 @@
+    {% extends 'base.html.twig' %}
+
+    {% form_theme formview 'bootstrap_5_layout.html.twig' %}
+
+    {% block title %}
+        Edition de {{ product.name }}
+    {% endblock %}
+
+    {% block body %}
+        <h1>Editer {{ product.name }}</h1>
+
+        {{ form_start(formview, {'attr': {'novalidate': 'novalidate' }}) }}
+
+        {{ form_errors(formview) }}
+
+        <div class="row">
+            <div class="col">
+                {{ form_row(formview.name) }}
+                {{ form_row(formview.price) }}
+            </div>
+            <div class="col">
+                {{ form_row(formview.picture) }}
+                {{ form_row(formview.category) }}
+                {{ form_row(formview.shortDescription) }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">
+            <i class="fas fa-save"></i>
+            Éditer le produit
+        </button>
+
+        {{ form_end(formview) }}
+    {% endblock %}

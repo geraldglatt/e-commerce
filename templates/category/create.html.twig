@@ -1,0 +1,26 @@
+    {% extends 'base.html.twig' %}
+
+    {% form_theme formview 'bootstrap_5_layout.html.twig' %}
+
+    {% block title %}Créer une Catégorie{% endblock %}
+
+    {% block body %}
+        <h1>Créer une catégorie</h1>
+
+        {{ form_start(formview) }}
+
+        {{ form_errors(formview) }}
+
+        <div class="row">
+            <div class="col">
+                {{ form_row(formview.name) }}  
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">
+            <i class="fas fa-save"></i>
+            Enregistrer
+        </button>
+
+        {{ form_end(formview) }}
+    {% endblock %}
