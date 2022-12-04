@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formview 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <h1>Votre panier</h1>
+
+    {% if items  | length > 0 %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td>
+                        <a href="{{ path('cart_add', {'id': item.product.id}) }}?
+                        returnToCart=true" class="btn btn-sm btn-primary"><i class="fas fa-plus"></a>
+                        {{ item.qty }}
+                        <a href="{{ path("cart_decrement", {'id': item.product.id}) }}" class="btn btn-sm btn-primary"><i class="fas fa-minus"></i></a>
+                    </td>
+                    <td>
+                        {{ item.qty * item.product.price}}</td>
+                    <td>
+                        <a href="{{ path("cart_delete", {'id': item.product.id}) }}" class="btn btn-sm btn-danger">
+                        <i class="fas fa-trash">
+                            </i>
+                        </i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total :</td>
+                <td colspan="2">{{ total }}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <hr>
+    {% if is_granted('ROLE_USER') %}
+        <h2>Confirmez votre commande en remplissant ce formulaire</h2>
+        {{ form_start(confirmationForm, {'action': path('purchase_confirm')}) }}
+
+        {{ form_widget(confirmationForm) }}
+
+        <button type="submit" class="btn btn-success">Je confirme !</button>
+        
+        {{ form_end(confirmationForm) }}
+        {% else %}
+            <h2>Vous devez être connecté pour confirmer cette commande</h2>
+            <a href="{{ path("security_login") }}" class="btn btn-success">Connexion</a>
+            ou <a href="#">Créez un compte</a>
+        {% endif %}
+    {% else %}
+        <h2>Le panier est vide !</h2>
+    {% endif %}
+{% endblock %}
